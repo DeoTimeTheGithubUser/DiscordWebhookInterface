@@ -24,11 +24,14 @@ public class DiscordWebhook {
     public void sendMessage(WebhookMessage message) {
         JsonObject obj = new JsonObject();
 
-        if(message.getContent() == null || message.getContent().isEmpty()) throw new IllegalArgumentException("Cannot have empty content field.");
+        if (message.getContent() == null || message.getContent().isEmpty())
+            throw new IllegalArgumentException("Cannot have empty content field.");
 
         obj.addProperty("content", message.getContent());
-        if(message.getUsername() != null && !message.getUsername().isEmpty()) obj.addProperty("username", message.getUsername());
-        if(message.getAvatarURL() != null && !message.getAvatarURL().isEmpty()) obj.addProperty("avatar_url", message.getAvatarURL());
+        if (message.getUsername() != null && !message.getUsername().isEmpty())
+            obj.addProperty("username", message.getUsername());
+        if (message.getAvatarURL() != null && !message.getAvatarURL().isEmpty())
+            obj.addProperty("avatar_url", message.getAvatarURL());
         makeRequest(obj);
     }
 
@@ -38,7 +41,7 @@ public class DiscordWebhook {
             con.addRequestProperty("Content-Type", "application/json");
             con.addRequestProperty("User-Agent", "Mozilla/5.0");
             con.setDoOutput(true);
-            try(OutputStream output = con.getOutputStream()) {
+            try (OutputStream output = con.getOutputStream()) {
                 output.write(obj.toString().getBytes());
             }
             con.getInputStream().close();

@@ -23,7 +23,7 @@ public class WebhookControlPanel extends JPanel {
     @Getter
     private static final Map<WebhookComponent, WebhookControlPanel> cachedControlPanels = new HashMap<>();
 
-    public static void loadImages(){
+    public static void loadImages() {
         new Thread(() -> {
             try {
                 DEFAULT_AVATAR = new ImageIcon(new URL("https://cdn.siasat.com/wp-content/uploads/2021/05/Discord.jpg"));
@@ -104,7 +104,7 @@ public class WebhookControlPanel extends JPanel {
 
         JLabel avatarIcon = new JLabel();
         avatarIcon.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-        if(component.getInfo().getAvatarURL().isEmpty()) avatarIcon.setIcon(DEFAULT_AVATAR);
+        if (component.getInfo().getAvatarURL().isEmpty()) avatarIcon.setIcon(DEFAULT_AVATAR);
         else {
             ImageIcon icon = getIcon(component.getInfo().getAvatarURL());
             avatarIcon.setIcon(icon == null ? DEFAULT_AVATAR : icon);
@@ -115,15 +115,23 @@ public class WebhookControlPanel extends JPanel {
         usernameDisplay.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         usernameField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
-            public void insertUpdate(DocumentEvent e) {updateUsername();}
+            public void insertUpdate(DocumentEvent e) {
+                updateUsername();
+            }
+
             @Override
-            public void removeUpdate(DocumentEvent e) {updateUsername();}
+            public void removeUpdate(DocumentEvent e) {
+                updateUsername();
+            }
+
             @Override
-            public void changedUpdate(DocumentEvent e) {updateUsername();}
+            public void changedUpdate(DocumentEvent e) {
+                updateUsername();
+            }
 
             private void updateUsername() {
                 String username = usernameField.getText();
-                if(username == null || username.isEmpty()) {
+                if (username == null || username.isEmpty()) {
                     usernameDisplay.setText("Captain Hook");
                     return;
                 }
@@ -153,7 +161,7 @@ public class WebhookControlPanel extends JPanel {
         statusLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 
         sendButton.addActionListener(e -> {
-            if(contentField.getText().isEmpty()) {
+            if (contentField.getText().isEmpty()) {
                 statusLabel.setForeground(Color.RED);
                 statusLabel.setText("Cannot have empty content field.");
                 return;
@@ -189,9 +197,10 @@ public class WebhookControlPanel extends JPanel {
     private static ImageIcon getIcon(String url) {
         try {
             ImageIcon icon = new ImageIcon(new URL(url));
-            if(icon.getIconWidth() > 100 && icon.getIconHeight() > 100) icon.setImage(icon.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+            if (icon.getIconWidth() > 100 && icon.getIconHeight() > 100)
+                icon.setImage(icon.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
             return icon;
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
@@ -205,14 +214,15 @@ public class WebhookControlPanel extends JPanel {
 
                 while (true) {
                     synchronized (this) {
-                        if(!updated) continue;
+                        if (!updated) continue;
                         updated = false;
                         try {
                             String urlInput = avatarField.getText();
                             // not using function here because need to keep lock off of bool
                             ImageIcon icon = new ImageIcon(new URL(urlInput));
-                            if(!updated) icon.setImage(icon.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
-                            if(!updated) avatarIcon.setIcon(icon);
+                            if (!updated)
+                                icon.setImage(icon.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+                            if (!updated) avatarIcon.setIcon(icon);
                             avatarIcon.updateUI();
                         } catch (MalformedURLException e) {
                             e.printStackTrace();

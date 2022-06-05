@@ -52,7 +52,7 @@ public class WebhookGui extends JFrame {
         webhooksPanel.setLayout(new BoxLayout(webhooksPanel, BoxLayout.Y_AXIS));
         webhooksPanel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         JLabel noWebhooks = new JLabel("No webhooks.");
-        if(webhooks == null) webhooksPanel.add(noWebhooks);
+        if (webhooks == null) webhooksPanel.add(noWebhooks);
         webhooksContainer.add(webhooksPanel);
         webhooksContainer.add(Box.createRigidArea(new Dimension(0, 10)));
 
@@ -74,7 +74,7 @@ public class WebhookGui extends JFrame {
             return webhookComponent;
         };
 
-        if(webhooks != null) Arrays.stream(webhooks).forEach(addNewWebhook::apply);
+        if (webhooks != null) Arrays.stream(webhooks).forEach(addNewWebhook::apply);
 
         this.createNewWebhookButton = new JButton("Create new");
         createNewWebhookButton.setFocusPainted(false);

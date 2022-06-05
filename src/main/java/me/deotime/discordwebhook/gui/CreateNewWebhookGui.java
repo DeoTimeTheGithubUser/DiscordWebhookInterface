@@ -4,9 +4,7 @@ import me.deotime.discordwebhook.data.WebhookInfo;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 public class CreateNewWebhookGui extends JFrame {
 
@@ -53,7 +51,7 @@ public class CreateNewWebhookGui extends JFrame {
         createButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         createButton.addActionListener(e -> {
             dispose();
-            if(submitAction == null) return;
+            if (submitAction == null) return;
             submitAction.accept(new WebhookInfo(nameField.getText(), urlField.getText(), "", ""));
         });
 

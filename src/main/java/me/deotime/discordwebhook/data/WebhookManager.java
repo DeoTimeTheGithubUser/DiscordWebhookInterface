@@ -1,15 +1,13 @@
 package me.deotime.discordwebhook.data;
 
-import com.google.gson.*;
-import com.google.gson.stream.JsonReader;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import lombok.Getter;
 
 import java.io.*;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 public class WebhookManager {
 
@@ -26,7 +24,7 @@ public class WebhookManager {
         webhookInfos = new ArrayList<>();
         try {
             WebhookInfo[] webhooks = gson.fromJson(new FileReader(webhookFile), WebhookInfo[].class);
-            if(webhooks == null) return;
+            if (webhooks == null) return;
             webhookInfos.addAll(Arrays.asList(webhooks));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -34,7 +32,7 @@ public class WebhookManager {
     }
 
     public void save() {
-        try(FileWriter writer = new FileWriter(webhookFile)) {
+        try (FileWriter writer = new FileWriter(webhookFile)) {
             String data = gson.toJson(getAllWebhookInfo());
             writer.write(data);
             writer.flush();

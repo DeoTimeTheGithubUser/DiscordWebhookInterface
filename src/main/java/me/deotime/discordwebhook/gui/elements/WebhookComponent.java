@@ -3,7 +3,6 @@ package me.deotime.discordwebhook.gui.elements;
 import lombok.Getter;
 import lombok.Setter;
 import me.deotime.discordwebhook.data.WebhookInfo;
-import me.deotime.discordwebhook.data.WebhookManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +13,8 @@ public class WebhookComponent extends JPanel {
 
     private static WebhookComponent selectedComponent;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private WebhookInfo info;
 
     private Runnable selectAction;
@@ -47,10 +47,10 @@ public class WebhookComponent extends JPanel {
     }
 
     public void select() {
-        if(selectedComponent != null) selectedComponent.deselect();
+        if (selectedComponent != null) selectedComponent.deselect();
         selectedComponent = this;
         setBackground(new Color(129, 230, 230));
-        if(this.selectAction != null) selectAction.run();
+        if (this.selectAction != null) selectAction.run();
     }
 
     public void deselect() {
